@@ -4,7 +4,7 @@ require("rgeos")
 
 setwd("/Users/tilmangraff/Documents/GitHub/TJ")
 
-colors = c("#B36305", "#E32017", "#FFD300", "#00782A", "#00A4A7", "#F3A9BB", "#A0A5A9", "#9B0056")
+colors = c("#0098D4", "#E32017", "#FFD300", "#00782A", "#00A4A7", "#F3A9BB", "#A0A5A9", "#9B0056")
 
 hex = readOGR("./input/temp/testenvironment/test.shp")
 adj = gTouches(hex, byid=TRUE)
@@ -92,3 +92,5 @@ for(thistrp in trunktrps){
 
 hubs = alllines[which(duplicated(alllines))]
 points(hex@data[hubs, c("x","y")], col = "black", pch = 21, cex = 2, bg = "white")
+
+legend("bottomright", legend=c("Line 1", "Line 2", "Line 3", "Line 4", "Line 5", "Line 6"), col=colors, lty=1, lwd = 15)

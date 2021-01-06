@@ -13,15 +13,7 @@ from matplotlib.patches import RegularPolygon
 #from matplotlib.collections import PatchCollection
 
 
-# define an environment
 
-xwidth = 10
-ywidth = 10
-radius = 1
-
-t = [range(1,10)]
-
-print(t)
 
 
 #for x in range
