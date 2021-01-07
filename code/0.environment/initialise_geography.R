@@ -26,8 +26,10 @@ HexPols <- HexPoints2SpatialPolygons(HexPts)
 HexPolsDf = SpatialPolygonsDataFrame(HexPols, data = data.frame("ID" = 0:(n-1), "x" = HexPts@coords[,1], "y" = HexPts@coords[,2]), match.ID = F)
 
 # create some pseudo travel volumes based on some bogus gravity
-Vraw = as.matrix(dist(HexPts@coords, upper=TRUE)^(-3) * 100) + rnorm(n^2, sd = 10)
+dist = as.matrix(dist(HexPts@coords, upper=TRUE))
+Vraw = as.matrix(dist^(-3) * 100) + rnorm(n^2, sd = 10)
 V = matrix(0, n, n) + as.matrix(Vraw>0) * Vraw
+V[V==Inf] = 0
 
 # back out the adjacency matrix
 adj = matrix(as.numeric(gTouches(HexPolsDf, byid=TRUE)), n ,n)
@@ -39,10 +41,13 @@ row.names(V) = 0:(n-1)
 colnames(V) = 0:(n-1)
 row.names(adj) = 0:(n-1)
 colnames(adj) = 0:(n-1)
+row.names(dist) = 0:(n-1)
+colnames(dist) = 0:(n-1)
 
 writeOGR(HexPolsDf,"./input/temp/testenvironment", "test",  driver="ESRI Shapefile", overwrite_layer=TRUE)
 write.csv(V, "./input/temp/testenvironment/V.csv", row.names=FALSE)
 write.csv(adj, "./input/temp/testenvironment/adj.csv", row.names=FALSE)
+write.csv(dist, "./input/temp/testenvironment/dist.csv", row.names=FALSE)
 #
 # plot(borderpoly)
 # plot(HexPols[borderpoly,])
