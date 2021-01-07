@@ -44,7 +44,7 @@ def construct_travel_matrix(bls,cdrivemat):
     return np.array(all_routes)
 
 def simple_welfare(bls,cdrivemat,Vraw):
-    min3d = min3d = np.amin(construct_travel_matrix(bls, cdrivemat), 2) # fastest travel time / bus or car
+    min3d = np.amin(construct_travel_matrix(bls, cdrivemat), 2) # fastest travel time / bus or car
     welf = np.sum(min3d * Vraw)
 
     return welf
